@@ -37,6 +37,18 @@ class MyComponent extends React.Component {
     console.log(event, event.target.value);
   };
 
+  handleOnChangeAge = (event) => {
+    this.setState({
+      age: event.target.value,
+    });
+  };
+
+  handleOnChangeAddrress = (event) => {
+    this.setState({
+      address: event.target.value,
+    });
+  };
+
   handleOnSubmit = (event) => {
     event.preventDefault();
     console.log(this.state);
@@ -50,12 +62,24 @@ class MyComponent extends React.Component {
             this.handleOnSubmit(event);
           }}
         >
+          <label>Your name:</label>
           <input
+            value={this.state.name}
             type="text"
             onChange={(event) => {
               this.handleOnChangeInput(event);
             }}
           />
+          <br />
+          <label>Your address:</label>
+          <input
+            value={this.state.address}
+            type="text"
+            onChange={(event) => {
+              this.handleOnChangeAddrress(event);
+            }}
+          />
+          <br />
           <button>Submit</button>
         </form>
       </div>
