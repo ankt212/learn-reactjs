@@ -1,14 +1,18 @@
 import React from "react";
 
 class DisplayInfo extends React.Component {
-  state = {
-    isShowListUser: true,
-  };
-  handleShowHide = () => {
-    this.setState({
-      isShowListUser: !this.state.isShowListUser,
-    });
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isShowListUser: true,
+    };
+    this.handleShowHide = () => {
+      this.setState({
+        isShowListUser: !this.state.isShowListUser,
+      });
+    };
+  }
+
   render() {
     // props => viết tắt properties
     const { listUser } = this.props;
