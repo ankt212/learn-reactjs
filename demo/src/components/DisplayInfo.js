@@ -2,6 +2,7 @@ import React from "react";
 
 class DisplayInfo extends React.Component {
   constructor(props) {
+    console.log("call constructor");
     super(props);
     this.state = {
       isShowListUser: true,
@@ -13,7 +14,25 @@ class DisplayInfo extends React.Component {
     };
   }
 
+  componentDidMount() {
+    console.log("call me component did mount");
+    setTimeout(() => {
+      document.title = "AnPeter";
+    }, 3000);
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log("call me component did update", this.props, prevProps);
+    if (this.props.listUser !== prevProps.listUser) {
+      if (this.props.listUser.length === 5) {
+        alert("you got 5 user");
+      }
+    }
+  }
+  componentWillUnmount() {}
+
   render() {
+    console.log("call me render");
     // props => viết tắt properties
     const { listUser } = this.props;
     console.log(listUser);
