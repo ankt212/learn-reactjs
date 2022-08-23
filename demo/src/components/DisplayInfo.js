@@ -1,88 +1,90 @@
-import React from "react";
+import React, { useState } from "react";
 
-class DisplayInfo extends React.Component {
-  constructor(props) {
-    console.log("call constructor");
-    super(props);
-    this.state = {
-      isShowListUser: true,
-    };
-    this.handleShowHide = () => {
-      this.setState({
-        isShowListUser: !this.state.isShowListUser,
-      });
-    };
-  }
+// stateless vs stateful
+// class DisplayInfo extends React.Component {
+// render() {
+//   console.log("call me render");
+//   // props => viết tắt properties
+//   const { listUser } = this.props;
+//   console.log(listUser);
+//   return (
+//     <>
+//       {true && (
+//         <div>
+//           {listUser.map((user, index) => {
+//             return (
+//               <div key={user.id} className={+user.age > 18 ? "green" : "red"}>
+//                 <div>My name is {user.name}</div>
+//                 <div>My age is {user.age}</div>
+//                 <div>
+//                   <button
+//                     onClick={() => {
+//                       this.props.handleDeleteUser(user.id);
+//                     }}
+//                   >
+//                     Delete
+//                   </button>
+//                 </div>
+//                 <hr />
+//               </div>
+//             );
+//           })}
+//         </div>
+//       )}
+//       {/* <div>My name is {listUser.name}</div>
+//       <div>My age is {listUser.age}</div>
+//       <hr />
+//       <div>My name is {listUser.name}</div>
+//       <div>My age is {listUser.age}</div>
+//       <hr />
+//       <div>My name is {listUser.name}</div>
+//       <div>My age is {listUser.age}</div>
+//       <hr /> */}
+//     </>
+//   );
+// }
+// }
 
-  componentDidMount() {
-    console.log("call me component did mount");
-    setTimeout(() => {
-      document.title = "AnPeter";
-    }, 3000);
-  }
+const DisplayInfo = (props) => {
+  const { listUser } = props;
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log("call me component did update", this.props, prevProps);
-    if (this.props.listUser !== prevProps.listUser) {
-      if (this.props.listUser.length === 5) {
-        alert("you got 5 user");
-      }
-    }
-  }
-  componentWillUnmount() {}
+  const [isShowHideListUser, setShowHideListUser] = useState(true);
 
-  render() {
-    console.log("call me render");
-    // props => viết tắt properties
-    const { listUser } = this.props;
-    console.log(listUser);
-    return (
-      <>
+  const handleShowHide = () => {
+    // alert("Click me");
+    setShowHideListUser(!isShowHideListUser);
+  };
+  return (
+    <>
+      <div>
+        <span onClick={() => handleShowHide()}>
+          {isShowHideListUser == true ? "Hide list users" : "Show list users"}
+        </span>
+      </div>
+      {isShowHideListUser && (
         <div>
-          <span
-            onClick={() => {
-              this.handleShowHide();
-            }}
-          >
-            {this.state.isShowListUser === true
-              ? "Hide list user:"
-              : "Show list user:"}
-          </span>
-        </div>
-        {this.state.isShowListUser && (
-          <div>
-            {listUser.map((user, index) => {
-              return (
-                <div key={user.id} className={+user.age > 18 ? "green" : "red"}>
-                  <div>My name is {user.name}</div>
-                  <div>My age is {user.age}</div>
-                  <div>
-                    <button
-                      onClick={() => {
-                        this.props.handleDeleteUser(user.id);
-                      }}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                  <hr />
+          {listUser.map((user, index) => {
+            return (
+              <div key={user.id} className={+user.age > 18 ? "green" : "red"}>
+                <div>My name is {user.name}</div>
+                <div>My age is {user.age}</div>
+                <div>
+                  <button
+                    onClick={() => {
+                      this.props.handleDeleteUser(user.id);
+                    }}
+                  >
+                    Delete
+                  </button>
                 </div>
-              );
-            })}
-          </div>
-        )}
-        {/* <div>My name is {listUser.name}</div>
-        <div>My age is {listUser.age}</div>
-        <hr />
-        <div>My name is {listUser.name}</div>
-        <div>My age is {listUser.age}</div>
-        <hr />
-        <div>My name is {listUser.name}</div>
-        <div>My age is {listUser.age}</div>
-        <hr /> */}
-      </>
-    );
-  }
-}
+                <hr />
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </>
+  );
+};
 
 export default DisplayInfo;
