@@ -38,7 +38,7 @@ class AddUserInfo extends React.Component {
   };
   render() {
     return (
-      <div>
+      <>
         My name is {this.state.name} and I'm form {this.state.address}
         <form
           onSubmit={(event) => {
@@ -65,7 +65,7 @@ class AddUserInfo extends React.Component {
           <br />
           <button>Submit</button>
         </form>
-      </div>
+      </>
     );
   }
 }

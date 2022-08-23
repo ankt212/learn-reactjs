@@ -14,7 +14,7 @@ class DisplayInfo extends React.Component {
     const { listUser } = this.props;
     console.log(listUser);
     return (
-      <div>
+      <>
         <div>
           <span
             onClick={() => {
@@ -28,11 +28,21 @@ class DisplayInfo extends React.Component {
         </div>
         {this.state.isShowListUser && (
           <div>
-            {listUser.map((user) => {
+            {listUser.map((user, index) => {
               return (
                 <div key={user.id} className={+user.age > 18 ? "green" : "red"}>
                   <div>My name is {user.name}</div>
                   <div>My age is {user.age}</div>
+                  <div>
+                    <button
+                      onClick={() => {
+                        this.props.handleDeleteUser(user.id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                  <hr />
                 </div>
               );
             })}
@@ -47,7 +57,7 @@ class DisplayInfo extends React.Component {
         <div>My name is {listUser.name}</div>
         <div>My age is {listUser.age}</div>
         <hr /> */}
-      </div>
+      </>
     );
   }
 }
