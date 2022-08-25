@@ -18,6 +18,7 @@ import {
 } from "react-icons/fa";
 import { DiReact } from "react-icons/di";
 import sidebarBg from "../../assets/bg2.jpg";
+import { NavLink } from "react-router-dom";
 const SideBar = (props) => {
   const { image, collapsed, toggled, handleToggleSidebar } = props;
   return (
@@ -54,7 +55,9 @@ const SideBar = (props) => {
               icon={<FaTachometerAlt />}
               // suffix={<span className="badge red">New</span>}
             >
-              Dashboard
+              <NavLink className="nav-link" to="/admins">
+                Dashboard
+              </NavLink>
             </MenuItem>
             {/* <MenuItem icon={<FaGem />}> Component</MenuItem> */}
           </Menu>
@@ -65,7 +68,11 @@ const SideBar = (props) => {
               icon={<FaGem />}
               title="Features"
             >
-              <MenuItem>Quản lý User</MenuItem>
+              <MenuItem>
+                <NavLink className="nav-link" to="/admins/manage-users">
+                  Quản lý User
+                </NavLink>
+              </MenuItem>
               <MenuItem>Quản lý Bài Quiz</MenuItem>
               <MenuItem>Quản lý Câu Hỏi</MenuItem>
             </SubMenu>
