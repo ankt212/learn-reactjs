@@ -1,24 +1,12 @@
 import "./App.scss";
-import React from "react";
+import Header from "./components/Header/Header";
 
-// class App extends React.Component {
-//   render() {
-//     return (
-//       <div>
-//         <MyComponent></MyComponent>
-//       </div>
-//     );
-//   }
-// }
-// const App = () => {
-//   return (
-//     <div>
-//       <MyComponent></MyComponent>
-//     </div>
-//   );
-// };
 const App = () => {
-  return <div className="app-container">Hello world</div>;
+  return (
+    <div className="app-container">
+      <Header />
+    </div>
+  );
 };
 
 export default App;
