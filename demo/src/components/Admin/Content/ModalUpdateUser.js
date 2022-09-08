@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import "./ManageUser.scss";
 import { toast } from "react-toastify";
-import { postCreateNewUser } from "../../../services/apiServices";
+import { putUpdateUser } from "../../../services/apiServices";
 import _ from "lodash";
 
 const ModalUpdateUser = (props) => {
@@ -59,19 +59,15 @@ const ModalUpdateUser = (props) => {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
   };
-  const handleSubmitCreateUser = async () => {
+  const handleSubmitUpdateUser = async () => {
     // validate
     const isValidEmail = validateEmail(email);
     if (!isValidEmail) {
       toast.error("In valid email");
       return;
     }
-    if (!password) {
-      toast.error("In valid password");
-      return;
-    }
 
-    let data = await postCreateNewUser(email, password, username, role, image);
+    let data = await putUpdateUser(dataUpdate.id, username, role, image);
     // console.log(">>> check respon ", respon.data);
     if (data && data.EC === 0) {
       toast.success(data.EM);
@@ -130,15 +126,13 @@ const ModalUpdateUser = (props) => {
               />
             </div>
             <div className="col-md-4">
-              <label
-                className="form-label"
+              <label className="form-label">Role</label>
+              <select
                 onChange={(event) => setRole(event.target.value)}
                 value={role}
+                className="form-select"
               >
-                Role
-              </label>
-              <select className="form-select">
-                <option value="USERS">USERS</option>
+                <option value="USER">USER</option>
                 <option value="ADMIN">ADMIN</option>
               </select>
             </div>
@@ -170,7 +164,7 @@ const ModalUpdateUser = (props) => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => handleSubmitCreateUser()}>
+          <Button variant="primary" onClick={() => handleSubmitUpdateUser()}>
             Save
           </Button>
         </Modal.Footer>
