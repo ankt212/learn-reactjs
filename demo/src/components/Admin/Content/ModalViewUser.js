@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { FcPlus } from "react-icons/fc";
 import "./ManageUser.scss";
 import { toast } from "react-toastify";
 import { putUpdateUser } from "../../../services/apiServices";
@@ -103,9 +102,7 @@ const ModalViewUser = (props) => {
               </select>
             </div>
             <div className="col-md-12">
-              <label className="form-label label-upload">
-                <FcPlus /> File Image
-              </label>
+              <label className="form-label">File Image</label>
             </div>
             <div className="col-md-12 img-preview">
               {previewImage ? (
