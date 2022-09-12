@@ -4,6 +4,21 @@
         text-align: right;
         padding-right: 20px;
         padding-top: 15px;
+        margin-right: 350px;
+        span {
+            &:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+        button {
+            border: none;
+            padding: 3px 15px;
+            margin-left: 15px;
+            border-radius: 5px;
+            background: white;
+            border: 1px solid;
+        }
     }
 
     .title {
@@ -32,7 +47,7 @@
             margin-bottom: 15px;
         }
 
-        button {
+        .btn-submit {
             width: 100%;
             height: 50px;
             border: none;
@@ -40,6 +55,19 @@
             border-radius: 5px;
             background: black;
             color: white;
+        }
+        .forgot-password {
+            cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        .btn-page {
+            border: 1px solid;
+            width: 100%;
+            padding: 10px 0;
+            background: green;
+            color: whitesmoke;
         }
     }
 }
