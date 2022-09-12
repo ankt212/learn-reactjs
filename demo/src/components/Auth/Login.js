@@ -3,10 +3,12 @@ import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../services/apiServices";
 import { toast } from "react-toastify";
+import { VscEye, VscEyeClosed } from "react-icons/vsc";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const validateEmail = (email) => {
@@ -24,6 +26,11 @@ const Login = (props) => {
       toast.error("In valid email");
       return;
     }
+
+    if (!password) {
+      toast.error("In valid password");
+      return;
+    }
     // submit api
     let data = await postLogin(email, password);
     console.log("check data ", data);
@@ -39,7 +46,7 @@ const Login = (props) => {
     <div className="login-container">
       <div className="header ">
         <span>Dont't have an account yet?</span>
-        <button>Sign up</button>
+        <button onClick={() => navigate("/register")}>Sign up</button>
       </div>
       <div className="title col-4 mx-auto">An Peter</div>
       <div className="welcome col-4 mx-auto">Hello, who's this?</div>
@@ -53,14 +60,26 @@ const Login = (props) => {
             onChange={(event) => setEmail(event.target.value)}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group pass-group">
           <label>Password</label>
           <input
-            type={"password"}
+            type={isShowPassword ? "text" : "password"}
             className="form-control"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
+          {isShowPassword ? (
+            <span
+              className="icons-eye"
+              onClick={() => setIsShowPassword(false)}
+            >
+              <VscEye />
+            </span>
+          ) : (
+            <span className="icons-eye" onClick={() => setIsShowPassword(true)}>
+              <VscEyeClosed />
+            </span>
+          )}
         </div>
         <span className="forgot-password">Forgot password ?</span>
         <div>
