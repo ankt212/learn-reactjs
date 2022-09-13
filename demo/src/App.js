@@ -1,9 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { increaseCounter, decreaseCounter } from './redux/action/counterAction';
+import logo from "./logo.svg";
+import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { increaseCounter, decreaseCounter } from "./redux/action/counterAction";
 const App = () => {
-  const count = useSelector(state => state.counter.count);
+  const count = useSelector((state) => {
+    return state.counter.count;
+  });
+  // state Redux => Call Reducer => state's reducer
   const dispatch = useDispatch();
 
   return (
@@ -19,6 +22,6 @@ const App = () => {
       </header>
     </div>
   );
-}
+};
 
 export default App;
