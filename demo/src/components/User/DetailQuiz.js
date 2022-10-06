@@ -1,15 +1,19 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { getDataQuiz } from "../../services/apiServices";
 import _ from "lodash";
 import "./DetailQuiz.scss";
+import Question from "./Question";
 
-const DetailQuiz = (props) => {
+const DetailQuiz = () => {
   const params = useParams();
   const location = useLocation();
   // console.log(location);
   const quizId = params.id;
   console.log(params);
+
+  const [dataQuiz, setDataQuiz] = useState([]);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     fetchQuestions();
@@ -40,6 +44,17 @@ const DetailQuiz = (props) => {
         })
         .value();
       console.log(data);
+      setDataQuiz(data);
+    }
+    console.log("check data Quiz", dataQuiz);
+  };
+  const handlePrev = () => {
+    if (index - 1 < 0) return;
+    setIndex(index - 1);
+  };
+  const hanldeNext = () => {
+    if (dataQuiz && dataQuiz.length > index + 1) {
+      setIndex(index + 1);
     }
   };
   return (
@@ -53,16 +68,18 @@ const DetailQuiz = (props) => {
           <img />
         </div>
         <div className="q-content">
-          <div className="question">Question 1: How are you doing?</div>
-          <div className="Answer">
-            <div className="a-child">A. asdfghh</div>
-            <div className="a-child">B. asdfghh</div>
-            <div className="a-child">C. asdfghh</div>
-          </div>
+          <Question
+            index={index}
+            data={dataQuiz && dataQuiz.length > 0 ? dataQuiz[index] : []}
+          />
         </div>
         <div className="footer">
-          <button className="btn btn-secondary">Prev</button>
-          <button className="btn btn-primary">Nex</button>
+          <button className="btn btn-secondary" onClick={() => handlePrev()}>
+            Prev
+          </button>
+          <button className="btn btn-primary" onClick={() => hanldeNext()}>
+            Next
+          </button>
         </div>
       </div>
       <div className="right-content">count down</div>
