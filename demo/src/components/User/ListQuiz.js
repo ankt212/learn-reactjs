@@ -37,7 +37,11 @@ const ListQuiz = (props) => {
                 <p className="card-text">{quiz.description}</p>
                 <button
                   className="btn btn-primary"
-                  onClick={() => navigate(`/quiz/${quiz.id}`)}
+                  onClick={() =>
+                    navigate(`/quiz/${quiz.id}`, {
+                      state: { quizTitle: quiz.description },
+                    })
+                  }
                 >
                   Start now
                 </button>
@@ -45,7 +49,7 @@ const ListQuiz = (props) => {
             </div>
           );
         })}
-      {arrQuiz && arrQuiz.length == 0 && <div>You don't have any Quiz</div>}
+      {arrQuiz && arrQuiz.length === 0 && <div>You don't have any Quiz</div>}
     </div>
   );
 };

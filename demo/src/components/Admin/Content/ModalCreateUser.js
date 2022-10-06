@@ -56,18 +56,29 @@ const ModalCreateUser = (props) => {
       return;
     }
 
-    let data = await postCreateNewUser(email, password, username, role, image);
-    console.log(">>> check respon ", data);
-    if (data && data.EC === 0) {
-      toast.success(data.EM);
-      handleClose();
-      // await props.fetchListUsers();
-      props.setCurrentPage(1);
-      await props.fetchListUsersPaginate(1);
-    }
-    if (data && data.EC !== 0) {
-      toast.error(data.EM);
-    }
+    await postCreateNewUser(email, password, username, role, image)
+      .then((data) => {
+        toast.success(data.EM);
+        handleClose();
+        props.setCurrentPage(1);
+        props.fetchListUsersPaginate(1);
+      })
+      .catch((error) => {
+        toast.error(error.EM);
+        console.log(error.EM);
+      });
+    // console.log(">>> check respon ", data);
+    // if (data && data.EC === 0) {
+    //   toast.success(data.EM);
+    //   handleClose();
+    //   // await props.fetchListUsers();
+    //   props.setCurrentPage(1);
+    //   await props.fetchListUsersPaginate(1);
+    // }
+    // if (data && data.EC !== 0) {
+    //   toast.error(data.EM);
+
+    // }
   };
   return (
     <>

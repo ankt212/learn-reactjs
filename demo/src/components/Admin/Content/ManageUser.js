@@ -31,19 +31,29 @@ const ManageUser = (props) => {
   }, []);
 
   const fetchListUsers = async () => {
-    let response = await getAllUsers();
+    let response = await fetch(getAllUsers());
     if (response.EC === 0) {
       setListUsers(response.DT);
     }
   };
 
   const fetchListUsersPaginate = async (page) => {
-    let response = await getUserWithPaginate(page, LIMIT_USER);
-    if (response.EC === 0) {
-      console.log("response.dt = ", response.DT);
-      setListUsers(response.DT.users);
-      setPageCount(response.DT.totalPages);
-    }
+    // let response = await getUserWithPaginate(page, LIMIT_USER);
+    // if (response.EC === 0) {
+    //   console.log("response.dt = ", response.DT);
+    //   setListUsers(response.DT.users);
+    //   setPageCount(response.DT.totalPages);
+    // }
+    await getUserWithPaginate(page, LIMIT_USER)
+      .then((res) => {
+        // console.log(res);
+        setListUsers(res.DT.users);
+        setPageCount(res.DT.totalPages);
+      })
+      .catch((error) => {
+        console.log(error.EM);
+        console.log(error);
+      });
   };
 
   const handleClickBtnUpdate = (user) => {
