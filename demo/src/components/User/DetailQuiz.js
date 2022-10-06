@@ -54,11 +54,13 @@ const DetailQuiz = () => {
     if (index - 1 < 0) return;
     setIndex(index - 1);
   };
+
   const hanldeNext = () => {
     if (dataQuiz && dataQuiz.length > index + 1) {
       setIndex(index + 1);
     }
   };
+
   const handleCheckbox = (answerId, questionId) => {
     let dataQuizClone = _.cloneDeep(dataQuiz);
     let question = dataQuizClone.find(
@@ -80,6 +82,33 @@ const DetailQuiz = () => {
     if (index > -1) {
       dataQuizClone[index] = question;
       setDataQuiz(dataQuizClone);
+    }
+  };
+
+  const handleFinishQuiz = () => {
+    let payload = {
+      quizId: +quizId,
+      answers: [],
+    };
+    let answers = [];
+
+    if (dataQuiz && dataQuiz.length > 0) {
+      dataQuiz.forEach((question) => {
+        let questionId = question.questionId;
+        let userAnswerId = [];
+
+        question.answers.forEach((a) => {
+          if (a.isSelected === true) {
+            userAnswerId.push(a.id);
+          }
+        });
+        answers.push({
+          questionId: +questionId,
+          userAnswerId: userAnswerId,
+        });
+      });
+
+      payload.answers = answers;
     }
   };
   return (
@@ -106,7 +135,12 @@ const DetailQuiz = () => {
           <button className="btn btn-primary" onClick={() => hanldeNext()}>
             Next
           </button>
-          <button className="btn btn-warning">Finish</button>
+          <button
+            className="btn btn-warning"
+            onClick={() => handleFinishQuiz()}
+          >
+            Finish
+          </button>
         </div>
       </div>
       <div className="right-content">count down</div>
