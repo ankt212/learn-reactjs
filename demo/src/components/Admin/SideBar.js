@@ -18,9 +18,10 @@ import {
 } from "react-icons/fa";
 import { DiReact } from "react-icons/di";
 import sidebarBg from "../../assets/bg2.jpg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 const SideBar = (props) => {
   const { image, collapsed, toggled, handleToggleSidebar } = props;
+  const navigate = useNavigate();
   return (
     <>
       <ProSidebar
@@ -45,7 +46,12 @@ const SideBar = (props) => {
             }}
           >
             <DiReact size={"3em"} color={"00bfff"} />
-            <span>An Peter</span>
+            <span
+              onClick={() => navigate("/admins/manage-users")}
+              style={{ cursor: "pointer" }}
+            >
+              An Peter
+            </span>
           </div>
         </SidebarHeader>
 
@@ -73,7 +79,11 @@ const SideBar = (props) => {
                   Quản lý User
                 </NavLink>
               </MenuItem>
-              <MenuItem>Quản lý Bài Quiz</MenuItem>
+              <MenuItem>
+                <NavLink className="nav-link" to="/admins/manage-quizzes">
+                  Quản lý Bài Quiz
+                </NavLink>
+              </MenuItem>
               <MenuItem>Quản lý Câu Hỏi</MenuItem>
             </SubMenu>
           </Menu>
