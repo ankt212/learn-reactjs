@@ -30,6 +30,7 @@ const ModalUpdateQuiz = (props) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
+  const typeVal = [{ value: type, label: type }];
   const [image, setImage] = useState("");
   const [previewImage, setPreviewImage] = useState("");
 
@@ -38,7 +39,7 @@ const ModalUpdateQuiz = (props) => {
       //updateState
       setName(dataUpdate.name);
       setDescription(dataUpdate.description);
-      setType(dataUpdate.type);
+      setType(dataUpdate.difficulty);
       setImage("");
       if (dataUpdate.image) {
         setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
@@ -60,8 +61,12 @@ const ModalUpdateQuiz = (props) => {
   const handleSubmitUpdateQuiz = async () => {
     // validate
 
-    if (!name || !description) {
-      toast.error("Name/ descripstion is require");
+    if (!name || !description || !type) {
+      toast.error("Name/ descripstion / Type is require");
+      return;
+    }
+    if (!type) {
+      toast.error("Name/ descripstion / Type is require");
       return;
     }
 
@@ -69,7 +74,7 @@ const ModalUpdateQuiz = (props) => {
       dataUpdate.id,
       name,
       description,
-      type?.value,
+      type,
       image
     );
     // console.log(">>> check respon ", respon.data);
@@ -83,6 +88,8 @@ const ModalUpdateQuiz = (props) => {
       toast.error(data.EM);
     }
   };
+  console.log(type);
+
   return (
     <>
       {/* <Button variant="primary" onClick={handleShow}>
@@ -121,9 +128,8 @@ const ModalUpdateQuiz = (props) => {
             </div>
             <div className="col-md-12">
               <Select
-                value={type}
-                defaultValue={type}
-                onChange={setType}
+                value={typeVal}
+                onChange={(e) => setType(e.value)}
                 options={options}
                 placeholder={"Quiz type ..."}
               />
