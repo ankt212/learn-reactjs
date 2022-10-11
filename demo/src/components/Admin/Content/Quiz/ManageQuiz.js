@@ -1,7 +1,10 @@
 import "./ManageQuiz.scss";
 import Select from "react-select";
-import { useState } from "react";
-import { postCreateNewQuiz } from "../../../../services/apiServices";
+import { useEffect, useState } from "react";
+import {
+  postCreateNewQuiz,
+  getAllQuizForAdmin,
+} from "../../../../services/apiServices";
 import { toast } from "react-toastify";
 import TableQuiz from "./TableQuiz";
 import Accordion from "react-bootstrap/Accordion";
@@ -45,6 +48,7 @@ const ManageQuiz = (props) => {
         console.log(error);
       });
   };
+  useEffect(() => {}, []);
   return (
     <div className="quiz-container">
       <Accordion defaultActiveKey="0">
@@ -71,7 +75,7 @@ const ManageQuiz = (props) => {
                 </div>
                 <div className="form-floating">
                   <input
-                    type="password"
+                    type="text"
                     className="form-control"
                     placeholder="Description..."
                     value={description}
