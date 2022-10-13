@@ -12,6 +12,7 @@ import {
   postCreateNewQuestionForQuiz,
   postCreateNewAnswerForQuestion,
   getQuizWithQA,
+  postUpsertQA,
 } from "../../../../services/apiServices";
 import { toast } from "react-toastify";
 
@@ -263,23 +264,31 @@ const QuizQA = (props) => {
       return;
     }
     //submit question
-    for (const question of questions) {
-      const q = await postCreateNewQuestionForQuiz(
-        +selectedQuiz.value,
-        question.description,
-        question.imageFile
-      );
-      for (const answer of question.answers) {
-        await postCreateNewAnswerForQuestion(
-          answer.description,
-          answer.isCorrect,
-          q.DT.id
-        );
+    let questionClone = _.cloneDeep(questions);
+    for (let i = 0; i < questionClone.length; i++) {
+      if (questionClone[i].imageFile) {
+        questionClone[i].imageFile = await toBase64(questionClone[i].imageFile);
       }
     }
-    toast.success("Create questions and answers success");
-    setQuestions(initQuestion);
+    let res = await postUpsertQA({
+      quizId: selectedQuiz.value,
+      questions: questionClone,
+    });
+    if (res && res.EC === 0) {
+      toast.success(res.EM);
+      fetchQuizWithQA();
+    }
+    // toast.success("Create questions and answers success");
+    // setQuestions(initQuestion);
   };
+
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
   return (
     <div className="questions-container">
       <div className="add-new-question">
