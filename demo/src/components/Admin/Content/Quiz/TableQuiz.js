@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { getAllQuizForAdmin } from "../../../../services/apiServices";
 import ModalDeleteQuiz from "./ModalDeleteQuiz";
 import ModalUpdateQuiz from "./ModalUpdateQuiz";
+import Accordion from "react-bootstrap/Accordion";
 
 const TableQuiz = (props) => {
   const [listQuiz, setListQuiz] = useState([]);
@@ -78,6 +79,7 @@ const TableQuiz = (props) => {
             })}
         </tbody>
       </table>
+
       <ModalUpdateQuiz
         show={showModalUpdateQuiz}
         setShow={setShowModalUpdateQuiz}
