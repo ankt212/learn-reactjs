@@ -1,9 +1,40 @@
 import CountDown from "./CountDown";
+import { useRef } from "react";
 
 const RightContent = (props) => {
+  const refDiv = useRef([]);
   const { dataQuiz } = props;
   const onTimeUp = () => {
     props.handleFinishQuiz();
+  };
+
+  const getClassQuestion = (question) => {
+    if (question && question.answers.length > 0) {
+      let isUnAnswered = question.answers.find((a) => a.isSelected === true);
+      if (isUnAnswered) {
+        return "question selected";
+      }
+    }
+    return "question";
+  };
+
+  const handleClickQuestion = (question, index) => {
+    props.setIndex(index);
+    if (refDiv.current) {
+      refDiv.current.forEach((item) => {
+        if (item && item.className === "question clicked") {
+          item.className = "question";
+        }
+      });
+    }
+    if (question && question.answers.length > 0) {
+      let isUnAnswered = question.answers.find((a) => a.isSelected === true);
+      if (isUnAnswered) {
+        return;
+      }
+    }
+
+    refDiv.current[index].className = "question clicked";
   };
   return (
     <>
@@ -15,7 +46,12 @@ const RightContent = (props) => {
           dataQuiz.length > 0 &&
           dataQuiz.map((item, index) => {
             return (
-              <div key={`question-${index}`} className="question">
+              <div
+                key={`question-${index}`}
+                onClick={() => handleClickQuestion(item, index)}
+                className={getClassQuestion(item)}
+                ref={(el) => (refDiv.current[index] = el)}
+              >
                 {index + 1}
               </div>
             );
