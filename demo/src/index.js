@@ -5,13 +5,13 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
+import i18n from "./utils/i18n";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { BrowserRouter } from "react-router-dom";
 import Layout from "./Layout";
 import "nprogress/nprogress.css";
 import "react-awesome-lightbox/build/style.css";
-
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
